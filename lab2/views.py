@@ -160,18 +160,20 @@ def get_all_records():
 @app.route('/record', methods=['GET', 'POST'])
 def manage_records():
     if request.method == 'GET':
-        data = request.get_json()
+        # Handle GET request
+        user_id = request.args.get('user_id')
+        category_id = request.args.get('category_id')
 
-        if not data.get("user_id") and not data.get("category_id"):
-            return jsonify({'error': 'Any parameters are given'}), 400
+        if not user_id and not category_id:
+            return jsonify({'error': 'Specify user_id or category_id'}), 400
 
-        need_records = Record.query.filter_by(**data).all()
+        need_records = Record.query.filter_by(user_id=user_id, category_id=category_id).all()
         records_data = {
             record.id: {
                 "user_id": record.user_id,
                 "cat_id": record.category_id,
                 "amount": record.amount,
-                # "currency_id": record.currency_id,
+                "currency_id": record.currency_id,
                 "created_at": record.created_at
             } for record in need_records
         }
@@ -211,7 +213,7 @@ def manage_records():
                 "user_id": new_record.user_id,
                 "cat_id": new_record.category_id,
                 "amount": new_record.amount
-                # "currency_id": new_record.currency_id
+                "currency_id": new_record.currency_id
             }
 
             return jsonify(record_response), 200
