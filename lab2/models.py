@@ -1,14 +1,46 @@
-import json
-class User:
-    def __init__(self, username):
-        self.username = username
+# models.py
+from lab2 import db
+from datetime import datetime
 
-class Category:
-    def __init__(self, name):
-        self.name = name
+class User(db.Model):
+    __tablename__ = "user"
+    id = db.Column(db.Integer(), primary_key=True)
+    username = db.Column(db.String(length=30), nullable=False, unique=True)
 
-class Record:
-    def __init__(self, user_id, category_id, amount):
-        self.user_id = user_id
-        self.category_id = category_id
-        self.amount = amount
+    records = db.relationship("Record", back_populates="user", lazy="dynamic")
+
+    default_currency_id = db.Column(db.Integer, db.ForeignKey("currency.id"))
+    default_currency = db.relationship("Currency", foreign_keys=[default_currency_id])
+    def __repr__(self):
+        return f'User {self.username}'
+
+class Currency(db.Model):
+    __tablename__ = "currency"
+
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(length=30), nullable=False, unique=True)
+    symbol = db.Column(db.String(length=5), nullable=False, unique=True)
+
+    def __repr__(self):
+        return f'Currency {self.name}'
+
+class Category(db.Model):
+    __tablename__ = "category"
+
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(length=30), nullable=False, unique=True)
+
+    record = db.relationship("Record", back_populates="category", lazy="dynamic")
+class Record(db.Model):
+    __tablename__ = "record"
+
+    id = db.Column(db.Integer(), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), unique=False, nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey("category.id"), unique=False, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    amount = db.Column(db.Float(precision=2), unique=False, nullable=False)
+    currency_id = db.Column(db.Integer, db.ForeignKey("currency.id"), unique=False, nullable=False)
+    user = db.relationship("User", back_populates="records")
+    category = db.relationship("Category", back_populates="record")
+    # currency = db.relationship("Currency",  back_populates="record")
+
