@@ -111,7 +111,7 @@ def create_user():
 
     new_user = User(
         username=user_data["username"],
-        default_currency_id=default_currency.id
+        default_currency_id=default_currency.id,
         password=pbkdf2_sha256.hash(user_data["password"])
     )
     with app.app_context():
