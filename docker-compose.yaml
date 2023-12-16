@@ -1,12 +1,17 @@
 version: '3'
 
 services:
- lab2:
-   restart: always
-   build:
-     context: .
-     dockerfile: Dockerfile
-   environment:
-     PORT: "5000"
-   ports:
-     - "5000:8080"
+  lab3:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      PORT: "5000"
+    ports:
+      - "5000:8080"
+  db:
+    image: postgres:16.1
+    environment:
+      POSTGRES_PASSWORD: aot1
+      POSTGRES_DB: myDB
