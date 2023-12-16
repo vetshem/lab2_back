@@ -1,12 +1,24 @@
-# My laboratory work #2
-https://lab2-kvqu.onrender.com
+# My laboratory work #3
+https://lab3-8xon.onrender.com
 
+ДБ також завантажив на render.com
 ## Варіант
 Шемчук Віталій ІО-13
 13%3=1
 
 Мій варіант:
 Для валют - потрібно зробити окрему сутність, також для кожного користувача повинна бути валюта по замовчуванню(її можна встановити) а також при створенні витрати, можна вказувати валюту, проте не обов’язково(якщо не вказали то буде використана валюта по замовчуванню).
+
+## Потрібно зробити експорт змінних середовища
+
+```
+export POSTGRES_NAME=postgresql
+export POSTGRES_USER=postgres
+export POSTGRES_PASSWORD=aot1
+export POSTGRES_HOST=localhost
+export POSTGRES_DB=test
+```
+Ну або визначити їх в файлі .flaskenv
 
 Для запуску у себе на пк 
 
