@@ -212,7 +212,7 @@ def manage_records():
                 "id": new_record.id,
                 "user_id": new_record.user_id,
                 "cat_id": new_record.category_id,
-                "amount": new_record.amount
+                "amount": new_record.amount,
                 "currency_id": new_record.currency_id
             }
 
@@ -232,7 +232,7 @@ def manage_record(record_id):
                 "user_id": record.user_id,
                 "cat_id": record.category_id,
                 "amount": record.amount,
-                # "currency_id": record.currency_id,
+                "currency_id": record.currency_id,
                 "created_at": record.created_at
             }
             return jsonify(record_data), 200
