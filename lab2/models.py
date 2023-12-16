@@ -28,7 +28,7 @@ class Category(db.Model):
     __tablename__ = "category"
 
     id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(length=30), nullable=False, unique=True)
+    name = db.Column(db.String(length=30), nullable=False, unique=False)
 
     record = db.relationship("Record", back_populates="category", lazy="dynamic")
 class Record(db.Model):
