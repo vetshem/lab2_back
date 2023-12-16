@@ -2,6 +2,7 @@
 from marshmallow import Schema, fields, validate, ValidationError
 
 class UserSchema(Schema):
+    id = fields.Int()
     username = fields.String(required=True)
     default_currency_id = fields.Int(required=False)
     password = fields.String(required=True)
