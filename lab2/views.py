@@ -167,7 +167,14 @@ def manage_records():
         if not user_id and not category_id:
             return jsonify({'error': 'Specify user_id or category_id'}), 400
 
-        need_records = Record.query.filter_by(user_id=user_id, category_id=category_id).all()
+        query = Record.query
+        if user_id:
+            query = query.filter_by(user_id=user_id)
+        if category_id:
+            query = query.filter_by(category_id=category_id)
+
+        need_records = query.all()
+        print(need_records)
         records_data = {
             record.id: {
                 "user_id": record.user_id,
