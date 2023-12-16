@@ -5,7 +5,7 @@ from datetime import datetime
 class User(db.Model):
     __tablename__ = "user"
     id = db.Column(db.Integer(), primary_key=True)
-    username = db.Column(db.String(length=30), nullable=False, unique=True)
+    username = db.Column(db.String(length=30), nullable=False, unique=False)
 
     records = db.relationship("Record", back_populates="user", lazy="dynamic")
 
@@ -18,8 +18,8 @@ class Currency(db.Model):
     __tablename__ = "currency"
 
     id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(length=30), nullable=False, unique=True)
-    symbol = db.Column(db.String(length=5), nullable=False, unique=True)
+    name = db.Column(db.String(length=30), nullable=False, unique=False)
+    symbol = db.Column(db.String(length=5), nullable=False, unique=False)
 
     def __repr__(self):
         return f'Currency {self.name}'
