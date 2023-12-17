@@ -216,6 +216,7 @@ def delete_category(cat_id):
         return jsonify({'message': f'Category {cat_id} deleted'}), 200
 
 @app.route('/records', methods=['GET'])
+@jwt_required()
 def get_all_records():
     with app.app_context():
         records_data = {
@@ -234,6 +235,7 @@ def get_all_records():
 
 
 @app.route('/record', methods=['GET', 'POST'])
+@jwt_required()
 def manage_records():
     if request.method == 'GET':
         # Handle GET request
@@ -302,9 +304,10 @@ def manage_records():
             return jsonify(record_response), 200
 
 @app.route('/record/<int:record_id>', methods=['GET', 'DELETE'])
+@jwt_required()
 def manage_record(record_id):
     with app.app_context():
-        record = Record.query.get(record_id)
+        record = Record.query.get(record_id)@jwt_required()
 
         if not record:
             return jsonify({"error": f"Record {record_id} not found"}), 404

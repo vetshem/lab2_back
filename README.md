@@ -1,7 +1,10 @@
-# My laboratory work #3
-https://lab3-8xon.onrender.com
+# My laboratory work #4
+https://lab4-ci8n.onrender.com
 
-ДБ також завантажив на render.com
+ДБ завантажив на aiven.io
+
+При виконанні даної лабороторної роботи я навчився користуватись токеном, розробив механізм реєстрації та захистив решту ендпоїнтів токеном.
+
 ## Варіант
 Шемчук Віталій ІО-13
 13%3=1
@@ -17,6 +20,7 @@ export POSTGRES_USER=postgres
 export POSTGRES_PASSWORD=aot1
 export POSTGRES_HOST=localhost
 export POSTGRES_DB=test
+export JWT_SECRET_KEY=secret
 ```
 Ну або визначити їх в файлі .flaskenv
 
