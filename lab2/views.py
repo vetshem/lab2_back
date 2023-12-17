@@ -307,7 +307,7 @@ def manage_records():
 @jwt_required()
 def manage_record(record_id):
     with app.app_context():
-        record = Record.query.get(record_id)@jwt_required()
+        record = Record.query.get(record_id)
 
         if not record:
             return jsonify({"error": f"Record {record_id} not found"}), 404
