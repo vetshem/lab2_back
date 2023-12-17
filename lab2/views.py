@@ -140,11 +140,11 @@ def login_user():
     provided_user_id = user_data["id"]
 
     with app.app_context():
-        user = User.query.filter_by(username=username).first()
+        user = User.query.filter_by(id=provided_user_id).first()
 
         if user:
 
-            if provided_user_id is not None and provided_user_id == user.id:
+            if provided_user_id is not None and username == user.username:
                 # Password verification
                 if pbkdf2_sha256.verify(user_data["password"], user.password):
                     # Create an access token with the user's ID
@@ -154,7 +154,7 @@ def login_user():
                 else:
                     return jsonify({"message": "unsuccessful login (invalid password)"}), 401
             else:
-                return jsonify({"message": "unsuccessful login (invalid user ID)"}), 401
+                return jsonify({"message": "unsucusecessful login (invalid user ID or username)"}), 401
         else:
             return jsonify({"message": "unsuccessful login (user not found)"}), 404
 
