@@ -7,7 +7,7 @@ import uuid
 from marshmallow.exceptions import ValidationError
 from sqlalchemy.exc import IntegrityError
 import os
-from flask_jwt_extended import JWTManager, jwt_required, create_access_token, verify_jwt_in_request
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token, verify_jwt_in_request, get_jwt_identity
 from passlib.hash import pbkdf2_sha256
 
 jwt = JWTManager(app)
@@ -66,10 +66,15 @@ def healthcheck():
 
 
 @app.route('/user/<int:user_id>', methods=['GET', 'DELETE'])
-@jwt_required()
 def manage_user(user_id):
     with app.app_context():
+        jwt_claims = verify_jwt_in_request()
+        if jwt_claims is None:
+            return jsonify({'error': 'invalid token'}), 400
+        current_user_id = get_jwt_identity()
         user = User.query.get(user_id)
+        if current_user_id != user_id:
+            return jsonify({'error': 'You do not have permission to access this user'}), 403
 
         if not user:
             return jsonify({'error': f'User with that {user_id} dosnt exist'}), 404
